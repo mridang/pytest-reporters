@@ -17,13 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install poetry
         run: pipx install poetry
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version-file: 'pyproject.toml'
           cache: 'poetry'
@@ -32,7 +32,7 @@ jobs:
         run: poetry install --no-interaction --sync --all-extras
 
       - name: Run semantic-release
-        uses: mridang/action-semantic-release@v2.1.0
+        uses: mridang/action-semantic-release@v2.2.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
