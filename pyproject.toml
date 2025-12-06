@@ -1,0 +1,92 @@
+[project]
+name = "better-coverage"
+description = "Pytest reporter displaying pytest-cov coverage in Jest/Istanbul format with directory tree"
+license = { text = "Apache-2.0" }
+readme = "README.md"
+requires-python = ">=3.9, !=3.9.0, !=3.9.1"
+authors = [
+  { name = "Mridang Agarwalla", email = "mridang.agarwalla@gmail.com" }
+]
+maintainers = [
+  { name = "Mridang Agarwalla", email = "mridang.agarwalla@gmail.com" }
+]
+keywords = ["pytest", "coverage", "istanbul", "jest", "reporter", "pytest-plugin", "coverage-reporter"]
+classifiers = [
+  "Topic :: Software Development :: Libraries",
+  "Framework :: Pytest"
+]
+
+[project.urls]
+homepage = "https://github.com/mridang/pytest-reporters"
+repository = "https://github.com/mridang/pytest-reporters"
+documentation = "https://github.com/mridang/pytest-reporters"
+"Bug Tracker" = "https://github.com/mridang/pytest-reporters/issues"
+
+[project.entry-points.pytest11]
+better_coverage = "better_coverage.plugin"
+
+[tool.poetry]
+packages = [{include = "better_coverage", from = "src"}]
+include = ["src/better_coverage/py.typed"]
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = ">=3.9.2,<3.14"
+pytest = ">=7.0.0"
+pytest-cov = ">=2.8.1"
+
+[tool.poetry.group.dev.dependencies]
+tox = ">=3.9.0"
+mypy = ">=1.5"
+ruff = "^0.12.4"
+fawltydeps = "0.19.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.tox]
+envlist = ["py39", "py310", "py311", "py312", "py313"]
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+python_files = "test_*.py"
+python_functions = "test_*"
+junit_family = "legacy"
+addopts = [
+    "--strict-markers",
+    "--cov=src/",
+    "--cov-report=xml",
+    "--cov-report=term",
+    "-v"
+]
+
+[tool.coverage.run]
+data_file = "build/coverage/.coverage"
+omit = []
+
+[tool.mypy]
+files = ["src", "test"]
+strict = true
+implicit_reexport = true
+
+[tool.ruff]
+line-length = 130
+fix = true
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "C", "N", "Q", "S", "T", "A"]
+ignore = ["S101"]
+
+[tool.fawltydeps]
+ignore_undeclared = [
+  "better_coverage"
+]
+ignore_unused = [
+  "fawltydeps",
+  "mypy",
+  "pytest-cov",
+  "ruff",
+  "tox"
+]
