@@ -1,0 +1,39 @@
+name: Release to Github
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  publish-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: 'pyproject.toml'
+          cache: 'poetry'
+
+      - name: Install Dependencies
+        run: poetry install --no-interaction --sync --all-extras
+
+      - name: Run semantic-release
+        uses: mridang/action-semantic-release@v2.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}

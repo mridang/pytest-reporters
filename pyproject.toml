@@ -1,0 +1,86 @@
+[project]
+name = "better-coverage"
+description = "Pytest reporter displaying pytest-cov coverage in Jest/Istanbul format with directory tree"
+license = { text = "Apache-2.0" }
+readme = "README.md"
+requires-python = ">=3.9, !=3.9.0, !=3.9.1"
+authors = [
+  { name = "Mridang Agarwalla", email = "mridang.agarwalla@gmail.com" }
+]
+maintainers = [
+  { name = "Mridang Agarwalla", email = "mridang.agarwalla@gmail.com" }
+]
+keywords = ["pytest", "coverage", "istanbul", "jest", "reporter", "pytest-plugin", "coverage-reporter"]
+classifiers = [
+  "Topic :: Software Development :: Libraries",
+  "Framework :: Pytest"
+]
+dependencies = []
+
+[project.urls]
+homepage = "https://github.com/mridang/pytest-reporters"
+repository = "https://github.com/mridang/pytest-reporters"
+documentation = "https://github.com/mridang/pytest-reporters"
+"Bug Tracker" = "https://github.com/mridang/pytest-reporters/issues"
+
+[tool.poetry]
+include = ["better_coverage/py.typed"]
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = ">=3.9.2,<4.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.2.1"
+pytest-cov = ">=2.8.1"
+tox = ">=3.9.0"
+mypy = ">=1.5"
+ruff = "^0.12.4"
+fawltydeps = "0.19.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.tox]
+envlist = ["py39", "py310", "py311", "py312", "py313"]
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+python_files = "test_*.py"
+addopts = [
+  "--cov=better_coverage",
+  "--cov-report=html:build/coverage/html",
+  "--cov-report=xml:build/coverage/clover.xml",
+]
+junit_family = "legacy"
+
+[tool.coverage.run]
+data_file = "build/coverage/.coverage"
+omit = []
+
+[tool.mypy]
+files = [
+  "better_coverage",
+  "test"
+]
+strict = true
+implicit_reexport = true
+
+[tool.ruff]
+line-length = 130
+fix = true
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "C", "N", "Q", "S", "T", "A"]
+ignore = ["S101"]
+
+[tool.fawltydeps]
+ignore_unused = [
+  "fawltydeps",
+  "mypy",
+  "pytest-cov",
+  "ruff",
+  "tox"
+]
