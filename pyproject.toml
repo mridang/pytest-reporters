@@ -4,6 +4,7 @@ description = "Pytest reporter displaying pytest-cov coverage in Jest/Istanbul f
 license = { text = "Apache-2.0" }
 readme = "README.md"
 requires-python = ">=3.9, !=3.9.0, !=3.9.1"
+version = "0.1.0"
 authors = [
   { name = "Mridang Agarwalla", email = "mridang.agarwalla@gmail.com" }
 ]
@@ -15,6 +16,10 @@ classifiers = [
   "Topic :: Software Development :: Libraries",
   "Framework :: Pytest"
 ]
+dependencies = [
+  "pytest>=7.0.0",
+  "pytest-cov>=2.8.1"
+]
 
 [project.urls]
 homepage = "https://github.com/mridang/pytest-reporters"
@@ -25,25 +30,27 @@ documentation = "https://github.com/mridang/pytest-reporters"
 [project.entry-points.pytest11]
 better_coverage = "better_coverage.plugin"
 
-[tool.poetry]
-packages = [{include = "better_coverage", from = "src"}]
-include = ["src/better_coverage/py.typed"]
-version = "0.1.0"
-
-[tool.poetry.dependencies]
-python = ">=3.9.2,<3.14"
-pytest = ">=7.0.0"
-pytest-cov = ">=2.8.1"
-
-[tool.poetry.group.dev.dependencies]
-tox = ">=3.9.0"
-mypy = ">=1.5"
-ruff = "^0.12.4"
-fawltydeps = "0.19.0"
+[dependency-groups]
+dev = [
+  "tox>=3.9.0",
+  "ty>=0.0.4",
+  "ruff>=0.12.4",
+  "fawltydeps==0.19.0"
+]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["better_coverage*"]
+
+[tool.setuptools.package-data]
+better_coverage = ["py.typed"]
 
 [tool.tox]
 envlist = ["py39", "py310", "py311", "py312", "py313"]
@@ -65,10 +72,12 @@ addopts = [
 data_file = "build/coverage/.coverage"
 omit = []
 
-[tool.mypy]
-files = ["src", "test"]
-strict = true
-implicit_reexport = true
+[tool.ty.environment]
+python-version = "3.9"
+
+[tool.ty.src]
+respect-ignore-files = true
+include = ["src", "test"]
 
 [tool.ruff]
 line-length = 130
@@ -85,8 +94,8 @@ ignore_undeclared = [
 ]
 ignore_unused = [
   "fawltydeps",
-  "mypy",
   "pytest-cov",
   "ruff",
-  "tox"
+  "tox",
+  "ty"
 ]
