@@ -4,7 +4,7 @@ description = "Pytest reporter displaying pytest-cov coverage in Jest/Istanbul f
 license = { text = "Apache-2.0" }
 readme = "README.md"
 requires-python = ">=3.9, !=3.9.0, !=3.9.1"
-version = "0.1.0"
+version = "1.0.0"
 authors = [
   { name = "Mridang Agarwalla", email = "mridang.agarwalla@gmail.com" }
 ]
