@@ -24,6 +24,7 @@ from _pytest.junitxml import bin_xml_escape
 from _pytest.reports import TestReport
 from _pytest.stash import StashKey
 from _pytest.terminal import TerminalReporter
+
 DEFAULT_REPORT_DIR = "build/reports"
 
 xml_key = StashKey["LogXML"]()
