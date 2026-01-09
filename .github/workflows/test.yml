@@ -26,3 +26,10 @@ jobs:
 
       - name: Run Tests
         run: uv run pytest
+
+      - name: Generate coverage report
+        if: always()
+        uses: mridang/action-test-reporter@v3
+        with:
+          results-path: 'build/reports/junit.xml'
+          coverage-path: 'build/coverage/clover.xml'
