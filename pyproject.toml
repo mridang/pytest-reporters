@@ -60,6 +60,7 @@ better_coverage = ["py.typed"]
 envlist = ["py39", "py310", "py311", "py312", "py313"]
 
 [tool.pytest.ini_options]
+cache_dir = ".pytest"
 testpaths = ["test"]
 python_files = "test_*.py"
 python_functions = "test_*"
@@ -85,6 +86,7 @@ respect-ignore-files = true
 include = ["src", "test"]
 
 [tool.ruff]
+cache-dir = ".ruff"
 line-length = 130
 fix = true
 target-version = "py39"
