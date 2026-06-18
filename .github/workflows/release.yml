@@ -24,10 +24,10 @@ jobs:
         uses: mridang/action-runner-common@v1
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup uv
-        uses: astral-sh/setup-uv@v4
+        uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.9"
 
@@ -35,7 +35,7 @@ jobs:
         run: uv sync --group dev --frozen
 
       - name: Run semantic-release
-        uses: mridang/action-semantic-release@v2.1.0
+        uses: mridang/action-semantic-release@v2.2.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
